@@ -37,7 +37,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     public FrmPrincipal() {
         initComponents();
         tbyte.setColumns(4);
-        
+
     }
 
     /**
@@ -270,40 +270,108 @@ public class FrmPrincipal extends javax.swing.JFrame {
         }
     }
 
-    private void ordenar_de_grande_a_pequeno(ArrayList<Palabra> palabras)
-    {
+    private void ordenar_de_grande_a_pequeno(ArrayList<Palabra> palabras) {
         int i, j;
         Palabra aux;
         for (i = 0; i < palabras.size() - 1; i++) {
-            for (j = 0; j < palabras.size() - i - 1; j++) {                                                              
-                if (palabras.get(j+1).gettexto().length() > palabras.get(j).gettexto().length()) {
-                    aux = palabras.get(j+1);
-                   
-                    palabras.set(j + 1,palabras.get(j));
-                    palabras.set(j,aux);
+            for (j = 0; j < palabras.size() - i - 1; j++) {
+                if (palabras.get(j + 1).gettexto().length() > palabras.get(j).gettexto().length()) {
+                    aux = palabras.get(j + 1);
+
+                    palabras.set(j + 1, palabras.get(j));
+                    palabras.set(j, aux);
                 }
             }
         }
     }
-    
-    private void imprimepalabras(ArrayList<Palabra> palabras)
-    {
+
+    private void imprimepalabras(ArrayList<Palabra> palabras) {
         int cont = 0;
-        while(cont<palabras.size())
-        {
+        while (cont < palabras.size()) {
             System.out.println(palabras.get(cont).gettexto());
             cont++;
         }
     }
-    
-    private String quitasaltosdelinea(String texto)
-    {
+
+    private String quitasaltosdelinea(String texto) {
         texto = texto.replaceAll("\t", "");
         texto = texto.replaceAll("\n", "");
         texto = texto.replaceAll(" ", "");
         return texto;
     }
-    
+
+    private boolean meteenlista(String texto, ArrayList<Lista> todo) {
+        int cont = 0;
+        boolean sal = false;
+        boolean encontrado = false;
+        boolean enllave = false;
+        String leido = "";
+
+        while (!sal) {
+            if (cont < texto.length()) {
+                if (!enllave) {
+                    if (texto.charAt(cont) == '{') {
+                        if(cont>0)
+                        {
+                            todo.add(new Lista(leido,true));
+                        }
+                        enllave = true;
+                        leido = "";
+                        cont++;
+                    } else if (texto.charAt(cont) == '}') {
+                        encontrado = true;
+                        sal = true;
+                    }
+                    else
+                    {
+                        
+                        leido = leido + texto.charAt(cont);
+                        cont++;
+                        if(cont==texto.length())
+                        {
+                            todo.add(new Lista(leido,true));
+                        }
+                    }
+                } else {
+                    if (texto.charAt(cont) == '{') {
+                        encontrado = true;
+                        sal = true;
+                        cont++;
+                    } else if (texto.charAt(cont) == '}') {
+                        if(cont>0)
+                        {
+                            todo.add(new Lista(leido,false));
+                        }
+                        enllave=false;
+                        leido = "";
+                        cont++;
+                    }
+                    else
+                    {
+                        leido = leido + texto.charAt(cont);
+                        cont++;
+                        if(cont==texto.length())
+                        {
+                            sal =true;
+                            encontrado = true;
+                        }
+                    }
+                }
+            } else {
+                sal = true;     
+            }
+        }
+        if(encontrado)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+
+    }
+
     private void bconvertirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bconvertirActionPerformed
         // TODO add your handling code here:
         ArrayList<Palabra> palabras = new ArrayList<>();
@@ -352,68 +420,84 @@ public class FrmPrincipal extends javax.swing.JFrame {
                     }
 
                     ordenar_de_grande_a_pequeno(palabras);
-                    imprimepalabras(palabras);
-                    
+                    //imprimepalabras(palabras);
+
                     String texto = ttexto.getText();
                     texto = quitasaltosdelinea(texto);
-                    
-                    String resultado = "";
-                    int cont = 0;
-                    String buscar = "";
+                    ArrayList<Lista> todo = new ArrayList<>();
+                    if (meteenlista(texto,todo)) {
+                        int contatodo = 0;
+                        String resultado = "";
+                        while (contatodo < todo.size()) {
+                            if (todo.get(contatodo).getTraducir()) {
+                                texto = todo.get(contatodo).getTexto();
+                                int cont = 0;
+                                String buscar = "";
 
-                    int inicio;
-                    int fin;
+                                int inicio;
+                                int fin;
 
-                    int contbusca;
-                    boolean salbusca;
-                    boolean encontradobusca;
+                                int contbusca;
+                                boolean salbusca;
+                                boolean encontradobusca;
 
-                    inicio = 0;
-                    fin = texto.length();
+                                inicio = 0;
+                                fin = texto.length();
 
-                    while (inicio < texto.length() && fin > 0) {
+                                while (inicio < texto.length() && fin > 0 && fin>inicio) {
 
-                        salbusca = false;
-                        encontradobusca = false;
-                        contbusca = 0;
+                                    salbusca = false;
+                                    encontradobusca = false;
+                                    contbusca = 0;
 
-                        buscar = texto.substring(inicio, fin);
+                                    buscar = texto.substring(inicio, fin);
 
-                        salbusca = false;
-                        while (!salbusca) {
-                            if (contbusca < palabras.size()) {
-                                if (palabras.get(contbusca).gettexto().equals(buscar)) {
-                                    encontradobusca = true;
-                                    salbusca = true;
-                                } else {
-                                    contbusca++;
+                                    salbusca = false;
+                                    while (!salbusca) {
+                                        if (contbusca < palabras.size()) {
+                                            if (palabras.get(contbusca).gettexto().equals(buscar)) {
+                                                encontradobusca = true;
+                                                salbusca = true;
+                                            } else {
+                                                contbusca++;
+                                            }
+                                        } else {
+                                            salbusca = true;
+                                        }
+                                    }
+                                    if (encontradobusca) {
+                                        encontradobusca = false;
+                                        inicio = fin;
+                                        fin = texto.length();
+                                        if (tbyte.getText().length() > 0) {
+                                            resultado = resultado + tbyte.getText();
+                                        }
+                                        resultado = resultado + palabras.get(contbusca).gethex();
+                                        buscar = "";
+                                    } else {
+                                        fin--;
+                                    }
+                                }
+                                
+                                if (fin==inicio && fin!=texto.length()) {
+
+                                    tresultado.setText("");
+                                    JOptionPane.showMessageDialog(
+                                            this, "Faltan ocurrencias.");
+                                    contatodo = todo.size();
+
                                 }
                             } else {
-                                salbusca = true;
+                                resultado = resultado + todo.get(contatodo).getTexto();
                             }
+                            contatodo++;
                         }
-                        if (encontradobusca) {
-                            encontradobusca = false;
-                            inicio = fin;
-                            fin = texto.length();
-                            if (tbyte.getText().length() > 0) {
-                                resultado = resultado + tbyte.getText();
-                            }
-                            resultado = resultado + palabras.get(contbusca).gethex();
-                            buscar = "";
-                        } else {
-                            fin--;
-                        }
-                    }
-
-                    if (fin > 0) {
                         tresultado.setText(resultado);
                         tcontador.setText(Integer.toString(resultado.length() / 2));
-                    } else {
-                        tresultado.setText("");
-                        JOptionPane.showMessageDialog(
-                                this, "Faltan ocurrencias.");
 
+                    } else {
+                        JOptionPane.showMessageDialog(
+                                this, "Llaves mal");
                     }
 
                 } else {
@@ -455,7 +539,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
                 Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        System.out.println(salida);
+        //System.out.println(salida);
         return salida;
     }
 
