@@ -140,7 +140,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tbyte, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(tbyte, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -546,7 +546,17 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private void barchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_barchivoActionPerformed
         // TODO add your handling code here:
         JFileChooser fileChooser = new JFileChooser();
-        String ruta = leearchivo();
+        File lectura = new File("ruta.txt");
+        String ruta ="";
+        if (lectura.exists())
+        {
+              ruta = leearchivo();      
+        }
+        else
+        {
+            ruta = System.getProperty("user.home");
+        }
+        
         fileChooser.setCurrentDirectory(new File(ruta));
 
         int result = fileChooser.showOpenDialog(this);
