@@ -296,7 +296,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private String quitasaltosdelinea(String texto) {
         texto = texto.replaceAll("\t", "");
         texto = texto.replaceAll("\n", "");
-        texto = texto.replaceAll(" ", "");
         return texto;
     }
 
