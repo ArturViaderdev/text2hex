@@ -65,6 +65,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         bportapapeles = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         tbyte = new javax.swing.JTextField();
+        bpaste = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("TEXT2HEX");
@@ -118,6 +119,13 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         jLabel5.setText("ADD BYTE");
 
+        bpaste.setText("PASTE TXT");
+        bpaste.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bpasteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -145,13 +153,14 @@ public class FrmPrincipal extends javax.swing.JFrame {
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(tcontador, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE))))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 459, Short.MAX_VALUE))))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(barchivo)
-                    .addComponent(bconvertir)
-                    .addComponent(bborrar)
-                    .addComponent(bportapapeles))
+                    .addComponent(bportapapeles)
+                    .addComponent(bpaste, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(bconvertir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(bborrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(11, 11, 11))
         );
         layout.setVerticalGroup(
@@ -165,28 +174,32 @@ public class FrmPrincipal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(bconvertir)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(bportapapeles)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(bborrar)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(bpaste)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(bborrar)
+                        .addGap(35, 35, 35)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel5)
-                        .addComponent(tbyte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(tcontador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel4)))
-                .addContainerGap(29, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel5)
+                                .addComponent(tbyte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(tcontador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel4))))
+                    .addComponent(bportapapeles))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         pack();
@@ -270,6 +283,21 @@ public class FrmPrincipal extends javax.swing.JFrame {
         }
     }
 
+    private void ordenapalabrasusadas(ArrayList<Palabra> palabras) {
+        int i, j;
+        Palabra aux;
+        for (i = 0; i < palabras.size() - 1; i++) {
+            for (j = 0; j < palabras.size() - i - 1; j++) {
+                if (palabras.get(j + 1).getInicial() < palabras.get(j).getInicial()) {
+                    aux = palabras.get(j + 1);
+
+                    palabras.set(j + 1, palabras.get(j));
+                    palabras.set(j, aux);
+                }
+            }
+        }
+    }
+
     private void ordenar_de_grande_a_pequeno(ArrayList<Palabra> palabras) {
         int i, j;
         Palabra aux;
@@ -310,9 +338,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
             if (cont < texto.length()) {
                 if (!enllave) {
                     if (texto.charAt(cont) == '{') {
-                        if(cont>0)
-                        {
-                            todo.add(new Lista(leido,true));
+                        if (cont > 0) {
+                            todo.add(new Lista(leido, true));
                         }
                         enllave = true;
                         leido = "";
@@ -320,15 +347,12 @@ public class FrmPrincipal extends javax.swing.JFrame {
                     } else if (texto.charAt(cont) == '}') {
                         encontrado = true;
                         sal = true;
-                    }
-                    else
-                    {
-                        
+                    } else {
+
                         leido = leido + texto.charAt(cont);
                         cont++;
-                        if(cont==texto.length())
-                        {
-                            todo.add(new Lista(leido,true));
+                        if (cont == texto.length()) {
+                            todo.add(new Lista(leido, true));
                         }
                     }
                 } else {
@@ -337,38 +361,57 @@ public class FrmPrincipal extends javax.swing.JFrame {
                         sal = true;
                         cont++;
                     } else if (texto.charAt(cont) == '}') {
-                        if(cont>0)
-                        {
-                            todo.add(new Lista(leido,false));
+                        if (cont > 0) {
+                            todo.add(new Lista(leido, false));
                         }
-                        enllave=false;
+                        enllave = false;
                         leido = "";
                         cont++;
-                    }
-                    else
-                    {
+                    } else {
                         leido = leido + texto.charAt(cont);
                         cont++;
-                        if(cont==texto.length())
-                        {
-                            sal =true;
+                        if (cont == texto.length()) {
+                            sal = true;
                             encontrado = true;
                         }
                     }
                 }
             } else {
-                sal = true;     
+                sal = true;
             }
         }
-        if(encontrado)
-        {
+        if (encontrado) {
             return false;
-        }
-        else
-        {
+        } else {
             return true;
         }
 
+    }
+
+    private boolean todotrue(ArrayList<Boolean> letras) {
+        boolean sal = false;
+        boolean encontrado = false;
+        int cont = 0;
+        while (!sal) {
+            if (cont < letras.size()) {
+                if (letras.get(cont)) {
+                    cont++;
+                } else {
+                    sal = true;
+                    encontrado = true;
+                }
+            } else {
+                sal = true;
+            }
+        }
+        return !encontrado;
+    }
+
+    public String cambiacaracter(int position, String str) {
+        char ch = '½';
+        char[] charArray = str.toCharArray();
+        charArray[position] = ch;
+        return new String(charArray);
     }
 
     private void bconvertirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bconvertirActionPerformed
@@ -414,7 +457,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
                             }
                         }
 
-                        palabras.add(new Palabra(hex, palabra));
+                        if (!palabra.isEmpty()) {
+                            palabras.add(new Palabra(hex, palabra));
+                        }
                         //System.out.println(palabra);
                     }
 
@@ -424,12 +469,136 @@ public class FrmPrincipal extends javax.swing.JFrame {
                     String texto = ttexto.getText();
                     texto = quitasaltosdelinea(texto);
                     ArrayList<Lista> todo = new ArrayList<>();
-                    if (meteenlista(texto,todo)) {
+                    if (meteenlista(texto, todo)) {
                         int contatodo = 0;
                         String resultado = "";
                         while (contatodo < todo.size()) {
                             if (todo.get(contatodo).getTraducir()) {
                                 texto = todo.get(contatodo).getTexto();
+
+                                int contatabla = 0;
+                                while (contatabla < palabras.size()) {
+                                    int inicial = texto.indexOf(palabras.get(contatabla).gettexto());
+                                    if (inicial >= 0) {
+                                        palabras.get(contatabla).setEncontrada(true);
+                                        palabras.get(contatabla).setInicial(inicial);
+                                    }
+                                    contatabla++;
+                                }
+                                ArrayList<Boolean> letras;
+                                letras = new ArrayList<>();
+                                int contletras = 0;
+                                while (contletras < texto.length()) {
+                                    letras.add(false);
+                                    contletras++;
+                                }
+
+                                contatabla = 0;
+                                boolean sal = false;
+                                boolean lleno = false;
+                                int contpos;
+                                int inicial;
+                                while (!sal) {
+                                    if (contatabla < palabras.size()) {
+                                        if (palabras.get(contatabla).getEncontrada()) {
+
+                                            contpos = palabras.get(contatabla).getInicial();
+
+                                            inicial = contpos;
+
+                                            boolean salte = false;
+                                            boolean hayespacio = true;
+                                            //(contpos, inicial + palabras.get(contatabla).gettexto().length() - 1, letras)
+                                            int contespacio = contpos;
+
+                                            while (!salte) {
+                                                if (contespacio < inicial + palabras.get(contatabla).gettexto().length()) {
+                                                    if (!letras.get(contespacio)) {
+                                                        contespacio++;
+                                                    } else {
+                                                        salte = true;
+                                                        hayespacio = false;
+                                                    }
+                                                } else {
+                                                    salte = true;
+                                                }
+                                            }
+
+                                            if (hayespacio) {
+                                                while (contpos < inicial + palabras.get(contatabla).gettexto().length()) {
+                                                    texto = cambiacaracter(contpos, texto);
+                                                    letras.set(contpos, true);
+                                                    contpos++;
+
+                                                }
+                                                palabras.get(contatabla).setUsada(true);
+                                                if (todotrue(letras)) {
+                                                    sal = true;
+                                                    lleno = true;
+                                                } else {
+                                                    contatabla++;
+                                                }
+
+                                            } else {
+                                                if (todotrue(letras)) {
+                                                    sal = true;
+                                                } else {
+
+                                                    contatabla++;
+
+                                                }
+
+                                            }
+
+                                        } else {
+
+                                            if (todotrue(letras)) {
+                                                sal = true;
+                                                lleno = true;
+                                            } else {
+                                                contatabla++;
+                                            }
+                                        }
+                                    } else {
+                                        contatabla = 0;
+                                        while (contatabla < palabras.size()) {
+                                            palabras.get(contatabla).setEncontrada(false);
+                                            contatabla++;
+                                        }
+
+                                        contatabla = 0;
+                                        while (contatabla < palabras.size()) {
+                                            inicial = texto.indexOf(palabras.get(contatabla).gettexto());
+                                            if (inicial >= 0) {
+                                                palabras.get(contatabla).setEncontrada(true);
+                                                palabras.get(contatabla).setInicial(inicial);
+                                            }
+                                            contatabla++;
+                                        }
+                                        contatabla=0;
+
+                                    }
+                                }
+
+                                contatabla = 0;
+                                ArrayList<Palabra> palabrasusadas = new ArrayList();
+
+                                while (contatabla < palabras.size()) {
+                                    if (palabras.get(contatabla).getUsada()) {
+                                        palabrasusadas.add(palabras.get(contatabla));
+                                    }
+                                    contatabla++;
+                                }
+
+                                ordenapalabrasusadas(palabrasusadas);
+
+                                contatabla = 0;
+                                while (contatabla < palabrasusadas.size()) {
+                                  //  System.out.println(palabrasusadas.get(contatabla).gettexto());
+                                    resultado = resultado + palabrasusadas.get(contatabla).gethex();
+                                    contatabla++;
+                                }
+                                /*
                                 int cont = 0;
                                 String buscar = "";
 
@@ -439,7 +608,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
                                 int contbusca;
                                 boolean salbusca;
                                 boolean encontradobusca;
-
+                                
+                
                                 inicio = 0;
                                 fin = texto.length();
 
@@ -485,12 +655,14 @@ public class FrmPrincipal extends javax.swing.JFrame {
                                             this, "Faltan ocurrencias.");
                                     contatodo = todo.size();
 
-                                }
+                                } 
+                                 */
                             } else {
                                 resultado = resultado + todo.get(contatodo).getTexto();
                             }
                             contatodo++;
                         }
+
                         tresultado.setText(resultado);
                         tcontador.setText(Integer.toString(resultado.length() / 2));
 
@@ -546,16 +718,13 @@ public class FrmPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         JFileChooser fileChooser = new JFileChooser();
         File lectura = new File("ruta.txt");
-        String ruta ="";
-        if (lectura.exists())
-        {
-              ruta = leearchivo();      
-        }
-        else
-        {
+        String ruta = "";
+        if (lectura.exists()) {
+            ruta = leearchivo();
+        } else {
             ruta = System.getProperty("user.home");
         }
-        
+
         fileChooser.setCurrentDirectory(new File(ruta));
 
         int result = fileChooser.showOpenDialog(this);
@@ -592,6 +761,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
         Clipboard clpbrd = Toolkit.getDefaultToolkit().getSystemClipboard();
         clpbrd.setContents(new StringSelection(tresultado.getText()), null);
     }//GEN-LAST:event_bportapapelesActionPerformed
+
+    private void bpasteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bpasteActionPerformed
+        // TODO add your handling code here:
+        ttexto.paste();
+    }//GEN-LAST:event_bpasteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -632,6 +806,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton barchivo;
     private javax.swing.JButton bborrar;
     private javax.swing.JButton bconvertir;
+    private javax.swing.JButton bpaste;
     private javax.swing.JButton bportapapeles;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
