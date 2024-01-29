@@ -443,7 +443,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         // TODO add your handling code here:
         ArrayList<Palabra> palabras = new ArrayList<>();
-        ArrayList<Palabra> palabrasusadas = new ArrayList<>();
         
         BufferedReader br = null;
         String titulo = "";
@@ -502,6 +501,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
                         String resultado = "";
                         while (contatodo < todo.size()) {
                             if (todo.get(contatodo).getTraducir()) {
+                                
+                                ArrayList<Palabra> palabrasusadas = new ArrayList<>();
+                                
                                 texto = todo.get(contatodo).getTexto();
                                 
                                 
