@@ -448,7 +448,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         String titulo = "";
         String hex = "";
         String palabra = "";
-
+        twords.setText("");
         if (tarchivo.getText().isEmpty()) {
             JOptionPane.showMessageDialog(
                     this, "Has dejado el campo en blanco");
@@ -629,7 +629,15 @@ public class FrmPrincipal extends javax.swing.JFrame {
                                 contatabla = 0;
                                 
                                 while (contatabla < palabrasusadas.size()) {
-                                    twords.setText(twords.getText() + palabrasusadas.get(contatabla).gettexto());
+                                    if(contatabla==palabrasusadas.size()-1)
+                                    {
+                                        twords.setText(twords.getText() + palabrasusadas.get(contatabla).gettexto());
+                                    }
+                                    else
+                                    {
+                                        twords.setText(twords.getText() + palabrasusadas.get(contatabla).gettexto() + "-");
+                                    }
+                                    
                                     resultado = resultado + palabrasusadas.get(contatabla).gethex();
                                     contatabla++;
                                 }
