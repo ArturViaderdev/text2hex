@@ -66,6 +66,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         tbyte = new javax.swing.JTextField();
         bpaste = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        twords = new javax.swing.JTextArea();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("TEXT2HEX");
@@ -126,14 +129,21 @@ public class FrmPrincipal extends javax.swing.JFrame {
             }
         });
 
+        twords.setEditable(false);
+        twords.setColumns(20);
+        twords.setRows(5);
+        jScrollPane3.setViewportView(twords);
+
+        jLabel6.setText("Words");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(jLabel1))
@@ -142,8 +152,15 @@ public class FrmPrincipal extends javax.swing.JFrame {
                             .addComponent(tarchivo)
                             .addComponent(jScrollPane1)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(15, 15, 15)
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel6)
+                                .addGap(4, 4, 4)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel5)
@@ -153,7 +170,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(tcontador, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 459, Short.MAX_VALUE))))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 461, Short.MAX_VALUE)
+                            .addComponent(jScrollPane3))))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(barchivo)
@@ -177,7 +195,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(bconvertir)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -188,8 +210,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -199,7 +221,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
                                 .addComponent(tcontador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel4))))
                     .addComponent(bportapapeles))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(95, Short.MAX_VALUE))
         );
 
         pack();
@@ -228,12 +250,14 @@ public class FrmPrincipal extends javax.swing.JFrame {
         boolean encontrado = false;
         boolean mal = false;
         boolean salgrande = false;
+        ArrayList<Palabra> palabrasusadas = new ArrayList();
         while (!salgrande) {
             if (cont < cadena.length()) {
 
                 contb = 0;
                 sal = false;
                 encontrado = false;
+
                 while (!sal) {
                     if (contb < letras.length()) {
                         if (cadena.charAt(cont) == letras.charAt(contb)) {
@@ -316,7 +340,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private void imprimepalabras(ArrayList<Palabra> palabras) {
         int cont = 0;
         while (cont < palabras.size()) {
-            System.out.println(palabras.get(cont).gettexto());
+            // System.out.println(palabras.get(cont).gettexto());
             cont++;
         }
     }
@@ -335,6 +359,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         String leido = "";
 
         while (!sal) {
+            //System.out.println(texto);
             if (cont < texto.length()) {
                 if (!enllave) {
                     if (texto.charAt(cont) == '{') {
@@ -416,7 +441,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
     private void bconvertirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bconvertirActionPerformed
         // TODO add your handling code here:
+        // TODO add your handling code here:
         ArrayList<Palabra> palabras = new ArrayList<>();
+        ArrayList<Palabra> palabrasusadas = new ArrayList<>();
+        
         BufferedReader br = null;
         String titulo = "";
         String hex = "";
@@ -475,6 +503,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
                         while (contatodo < todo.size()) {
                             if (todo.get(contatodo).getTraducir()) {
                                 texto = todo.get(contatodo).getTexto();
+                                
+                                
 
                                 int contatabla = 0;
                                 while (contatabla < palabras.size()) {
@@ -532,6 +562,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
                                                 }
                                                 palabras.get(contatabla).setUsada(true);
+
+                                                palabrasusadas.add(new Palabra(palabras.get(contatabla).gethex(), palabras.get(contatabla).gettexto(), palabras.get(contatabla).getEncontrada(), palabras.get(contatabla).getInicial()));
                                                 if (todotrue(letras)) {
                                                     sal = true;
                                                     lleno = true;
@@ -575,13 +607,13 @@ public class FrmPrincipal extends javax.swing.JFrame {
                                             }
                                             contatabla++;
                                         }
-                                        contatabla=0;
+                                        contatabla = 0;
 
                                     }
                                 }
 
-                                contatabla = 0;
-                                ArrayList<Palabra> palabrasusadas = new ArrayList();
+                                /*contatabla = 0;
+                                
 
                                 while (contatabla < palabras.size()) {
                                     if (palabras.get(contatabla).getUsada()) {
@@ -589,12 +621,13 @@ public class FrmPrincipal extends javax.swing.JFrame {
                                     }
                                     contatabla++;
                                 }
-
+                                 */
                                 ordenapalabrasusadas(palabrasusadas);
 
                                 contatabla = 0;
+                                
                                 while (contatabla < palabrasusadas.size()) {
-                                  //  System.out.println(palabrasusadas.get(contatabla).gettexto());
+                                    twords.setText(twords.getText() + palabrasusadas.get(contatabla).gettexto());
                                     resultado = resultado + palabrasusadas.get(contatabla).gethex();
                                     contatabla++;
                                 }
@@ -681,8 +714,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
                         this, "Error leyendo el archivo");
             }
         }
-
-
     }//GEN-LAST:event_bconvertirActionPerformed
 
     private String leearchivo() {
@@ -813,12 +844,15 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextField tarchivo;
     private javax.swing.JTextField tbyte;
     private javax.swing.JTextField tcontador;
     private javax.swing.JTextArea tresultado;
     private javax.swing.JTextArea ttexto;
+    private javax.swing.JTextArea twords;
     // End of variables declaration//GEN-END:variables
 }
